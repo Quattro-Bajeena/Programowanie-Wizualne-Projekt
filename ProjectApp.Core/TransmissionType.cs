@@ -1,4 +1,4 @@
-﻿namespace ProjectApp.Core
+﻿namespace OleszekMowinski.ProjectApp.Core
 {
     public enum TransmissionType
     {

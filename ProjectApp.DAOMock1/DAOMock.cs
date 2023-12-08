@@ -1,74 +1,100 @@
-﻿using ProjectApp.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OleszekMowinski.ProjectApp.Core;
+using OleszekMowinski.ProjectApp.DAOMock1.DataObjects;
+using OleszekMowinski.ProjectApp.Interfaces;
 
-namespace ProjectApp.DAOMock1
+namespace OleszekMowinski.ProjectApp.DAOMock1
 {
     public class DAOMock : IDAO
     {
-
-        private List<IProducer> producers;
-        private List<ICar> cars;
+        private List<IAirplane> airplanes;
+        private List<IManufacturer> manufacturers;
 
 
         public DAOMock()
         {
-            producers = new List<IProducer>()
+            manufacturers = new List<IManufacturer>()
             {
-                new BO.Producer() {Id = 1, Name = "Toyota"},
-                new BO.Producer() {Id = 2, Name = "BMW"}
+                new Manufacturer() {Id = Guid.NewGuid(), Name = "Lockheed Martin", Founded = new DateTime(1995,1,1), Headquarters = "Fort Worth", President="James D. Taiclet"},
+                new Manufacturer() {Id = Guid.NewGuid(), Name = "Dassault", Founded = new DateTime(1929,1,1), Headquarters = "Paris", President="Eric Trappier"}
             };
 
-            cars = new List<ICar>()
+            airplanes = new List<IAirplane>()
             {
-                new BO.Car()
+                new Airplane()
                 {
-                    Id = 1,
-                    Producer = producers[0],
-                    Name="Rav4",
-                    ProductionYear = 2020,
-                    Transmission = Core.TransmissionType.Automatic
+                    Id = Guid.NewGuid(),
+                    Manufacturer = manufacturers[0],
+                    Name="F-22 Raptor",
+                    Introduction = new DateTime(1978,5,18),
+                    Status = AirplaneStatus.InService,
+                    Weight = 56533
                 },
-                new BO.Car()
+                new Airplane()
                 {
-                    Id = 2,
-                    Producer = producers[1],
-                    Name="X5",
-                    ProductionYear = 2015,
-                    Transmission = Core.TransmissionType.Manual
+                    Id = Guid.NewGuid(),
+                    Manufacturer = manufacturers[0],
+                    Name="F-22 Raptor",
+                    Introduction = new DateTime(2005,12,15),
+                    Status = AirplaneStatus.InService,
+                    Weight = 12312
                 },
-                new BO.Car()
+                new Airplane()
                 {
-                    Id = 3,
-                    Producer = producers[1],
-                    Name="Yaris",
-                    ProductionYear = 2022,
-                    Transmission = Core.TransmissionType.Automatic
+                    Id = Guid.NewGuid(),
+                    Manufacturer = manufacturers[1],
+                    Name="Rafale",
+                    Introduction = new DateTime(2001,5,18),
+                    Status = AirplaneStatus.InService,
+                    Weight = 9979
                 },
             };
         }
 
-        public ICar CreateNewCar()
+        public IAirplane CreateNewAirplane(string name, DateTime introduction, int weight, AirplaneStatus status, Guid manufacturerId)
         {
-            return new BO.Car();
+            return new Airplane();
         }
 
-        public IProducer CreateNewProducer()
+        public IManufacturer CreateNewManufacturer(string name, DateTime founded, string headquaters, string president)
         {
-            return new BO.Producer();
+            return new Manufacturer();
         }
 
-        public IEnumerable<ICar> GetAllCars()
+        public void DeleteAirplane(Guid id)
         {
-            return cars;
+            
         }
 
-        public IEnumerable<IProducer> GetProducers()
+        public void DeleteManufacturer(Guid id)
         {
-            return producers;
+            
+        }
+
+        public IEnumerable<IAirplane> GetAirplanes()
+        {
+            return airplanes;
+        }
+
+
+        public IEnumerable<IAirplane> GetFilteredAirplanes(AirplaneFilter filter)
+        {
+            // TODO?
+            return airplanes;
+        }
+
+        public IEnumerable<IManufacturer> GetManufacturer()
+        {
+            return manufacturers;
+        }
+
+        public IAirplane ModifyAirplane(IAirplane airplane)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IManufacturer ModifyManufacturer(IManufacturer manufacturer)
+        {
+            throw new NotImplementedException();
         }
     }
 }

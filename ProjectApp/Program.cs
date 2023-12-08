@@ -1,24 +1,24 @@
-﻿using ProjectApp.BLC;
+﻿using OleszekMowinski.ProjectApp.BLC;
 
-namespace ProjectApp
+namespace OleszekMowinski.ProjectApp
 {
     internal class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Hello world");
-            string libraryName = System.Configuration.ConfigurationManager.AppSettings["DAOLibraryName"];
-            var blc = new BLC.BLC(libraryName);
+            var libraryName = System.Configuration.ConfigurationManager.AppSettings["DAOLibraryName"];
+            var blc = new BuisnessLogicComponent(libraryName);
 
-            foreach (var producer in blc.GetProducers())
+            foreach (var manufacturer in blc.GetManufacturer())
             {
-                Console.WriteLine($"{producer.Id}: {producer.Name}");
+                Console.WriteLine($"{manufacturer.Id}: {manufacturer.Name}");
             }
             Console.WriteLine("--------------");
 
-            foreach(var car in blc.GetCars())
+            foreach(var plane in blc.GetAirplanes())
             {
-                Console.WriteLine($"{car.Id}: {car.Name} {car.Transmission} {car.Producer} {car.ProductionYear}");
+                Console.WriteLine($"{plane.Id}: {plane.Name} {plane.Manufacturer} {plane.Introduction} {plane.Weight}");
             }
         }
     }
