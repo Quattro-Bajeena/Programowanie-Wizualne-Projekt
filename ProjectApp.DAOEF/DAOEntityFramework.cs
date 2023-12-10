@@ -74,6 +74,11 @@ namespace OleszekMowinski.ProjectApp.DAOEF
             }
         }
 
+        public IAirplane? GetAirplane(Guid id)
+        {
+            return _dataContext.Airplanes.FirstOrDefault(x => x.Id == id);
+        }
+
         public IEnumerable<IAirplane> GetAirplanes()
         {
             return _dataContext.Airplanes.Include(a => a.ManufacturerEf).ToList();
@@ -122,7 +127,12 @@ namespace OleszekMowinski.ProjectApp.DAOEF
             
         }
 
-        public IEnumerable<IManufacturer> GetManufacturer()
+        public IManufacturer? GetManufacturer(Guid id)
+        {
+            return _dataContext.Manufacturers.FirstOrDefault(a => a.Id == id);
+        }
+
+        public IEnumerable<IManufacturer> GetManufacturers()
         {
             return _dataContext.Manufacturers;
         }

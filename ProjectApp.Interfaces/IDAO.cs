@@ -9,8 +9,10 @@ namespace OleszekMowinski.ProjectApp.Interfaces
 {
     public interface IDAO
     {
+        IAirplane? GetAirplane(Guid id);
+        IManufacturer? GetManufacturer(Guid id);
         IEnumerable<IAirplane> GetAirplanes();
-        IEnumerable<IManufacturer> GetManufacturer();
+        IEnumerable<IManufacturer> GetManufacturers();
         IAirplane CreateNewAirplane(string name, DateTime introduction, int weight, AirplaneStatus status, Guid manufacturerId);
         IManufacturer CreateNewManufacturer(string name, DateTime founded, string headquaters, string president);
         IAirplane ModifyAirplane(IAirplane airplane);

@@ -26,11 +26,15 @@ namespace OleszekMowinski.ProjectApp.BLC
         }
 
         public IEnumerable<IAirplane> GetAirplanes() => dao.GetAirplanes();
-        public IEnumerable<IManufacturer> GetManufacturer() => dao.GetManufacturer();
+        public IEnumerable<IManufacturer> GetManufacturer() => dao.GetManufacturers();
         public IAirplane CreateNewAirplane(string name, DateTime introduction, int weight, AirplaneStatus status, Guid manufacturerId) => dao.CreateNewAirplane(name, introduction, weight, status, manufacturerId);
         public IManufacturer CreateNewManufacturer(string name, DateTime founded, string headquaters, string president) => dao.CreateNewManufacturer(name, founded, headquaters, president);
         public IEnumerable<IAirplane> GetFilteredAirplanes(AirplaneFilter filter) => dao.GetFilteredAirplanes(filter);
         public void DeleteAirplane(Guid id) => dao.DeleteAirplane(id);
         public void DeleteProducera(Guid id) => dao.DeleteManufacturer(id);
+        public IAirplane? GetAirplane(Guid id) => dao.GetAirplane(id);
+        public IManufacturer? GetManufacturer(Guid id) => dao.GetManufacturer(id);  
+        
+
     }
 }

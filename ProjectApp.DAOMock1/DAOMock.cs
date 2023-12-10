@@ -82,7 +82,7 @@ namespace OleszekMowinski.ProjectApp.DAOMock1
             return airplanes;
         }
 
-        public IEnumerable<IManufacturer> GetManufacturer()
+        public IEnumerable<IManufacturer> GetManufacturers()
         {
             return manufacturers;
         }
