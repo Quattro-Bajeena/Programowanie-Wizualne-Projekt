@@ -8,16 +8,11 @@ namespace OleszekMowinski.ProjectApp.Interfaces
         IManufacturer? GetManufacturer(Guid id);
         IEnumerable<IAirplane> GetAirplanes();
         IEnumerable<IManufacturer> GetManufacturers();
-        IAirplane CreateNewAirplane(IAirplane airplane);
-        IManufacturer CreateNewManufacturer(IManufacturer manufacturer);
         IAirplane CreateNewAirplane(string name, DateTime introduction, int weight, AirplaneStatus status, Guid manufacturerId);
         IManufacturer CreateNewManufacturer(string name, DateTime founded, string headquaters, string president);
-        IAirplane EditAirplane(Guid id, string name, DateTime introduction, int weight, AirplaneStatus status, Guid manufacturerId);
-        IManufacturer EditManufacturer(Guid id, string name, DateTime founded, string headquaters, string president);
-        IAirplane EditAirplane(IAirplane airplane);
-        IManufacturer EditManufacturer(IManufacturer manufacturer);
+        IAirplane? EditAirplane(Guid id, string name, DateTime introduction, int weight, AirplaneStatus status, Guid manufacturerId);
+        IManufacturer? EditManufacturer(Guid id, string name, DateTime founded, string headquaters, string president);
         IEnumerable<IAirplane> GetFilteredAirplanes(AirplaneFilter filter);
-
         void DeleteAirplane(Guid id);
         void DeleteManufacturer(Guid id);
     }

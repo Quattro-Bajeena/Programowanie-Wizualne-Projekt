@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using OleszekMowinski.ProjectApp.DAOEF;
+using OleszekMowinski.ProjectApp.DAOSQL;
 
 #nullable disable
 
-namespace OleszekMowinski.ProjectApp.DAOEF.Migrations
+namespace OleszekMowinski.ProjectApp.DAOSQL.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20231211212507_InitialMigration")]

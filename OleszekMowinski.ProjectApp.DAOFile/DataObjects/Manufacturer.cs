@@ -1,7 +1,8 @@
 ﻿using OleszekMowinski.ProjectApp.Interfaces;
 
-namespace OleszekMowinski.ProjectApp.DAOMock.DataObjects
+namespace OleszekMowinski.ProjectApp.DAOSQL.DataObjects
 {
+    [Serializable]
     internal class Manufacturer : IManufacturer
     {
         public Guid Id { get; set; }

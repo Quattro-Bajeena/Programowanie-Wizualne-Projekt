@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OleszekMowinski.ProjectApp.DAOEF.DataObjects;
+using OleszekMowinski.ProjectApp.DAOSQL.DataObjects;
 
-namespace OleszekMowinski.ProjectApp.DAOEF
+namespace OleszekMowinski.ProjectApp.DAOSQL
 {
     public class DataContext : DbContext
     {

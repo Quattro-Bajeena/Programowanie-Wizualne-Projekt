@@ -3,7 +3,7 @@ using OleszekMowinski.ProjectApp.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OleszekMowinski.ProjectApp.DAOEF.DataObjects
+namespace OleszekMowinski.ProjectApp.DAOSQL.DataObjects
 {
     public class Airplane : IAirplane
     {

@@ -9,13 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OleszekMowinski.ProjectApp.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OleszekMowinski.ProjectApp.Interfaces", "ProjectApp.Interfaces\OleszekMowinski.ProjectApp.Interfaces.csproj", "{1BD4F7EB-6AE6-4CC5-AE5C-6EE809BA80BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OleszekMowinski.ProjectApp.DAOMock1", "ProjectApp.DAOMock1\OleszekMowinski.ProjectApp.DAOMock1.csproj", "{206319E2-4632-41FD-AF9D-ECBB8310AACE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OleszekMowinski.ProjectApp.DAOMock", "ProjectApp.DAOMock1\OleszekMowinski.ProjectApp.DAOMock.csproj", "{206319E2-4632-41FD-AF9D-ECBB8310AACE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OleszekMowinski.ProjectApp.BLC", "ProjectApp.BLC\OleszekMowinski.ProjectApp.BLC.csproj", "{863211C1-E018-4E12-B782-74B53637B8C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OleszekMowinski.ProjectApp.DAOEF", "ProjectApp.DAOEF\OleszekMowinski.ProjectApp.DAOEF.csproj", "{0A75A49D-D01B-4428-8BAE-C5BACFB0AE35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OleszekMowinski.ProjectApp.DAOSQL", "ProjectApp.DAOEF\OleszekMowinski.ProjectApp.DAOSQL.csproj", "{0A75A49D-D01B-4428-8BAE-C5BACFB0AE35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OleszekMowinski.ProjectApp.MVC", "OleszekMowinski.ProjectApp.MVC\OleszekMowinski.ProjectApp.MVC.csproj", "{8C82893E-2BD6-4E5A-BBEE-0E91D506328A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OleszekMowinski.ProjectApp.MVC", "OleszekMowinski.ProjectApp.MVC\OleszekMowinski.ProjectApp.MVC.csproj", "{8C82893E-2BD6-4E5A-BBEE-0E91D506328A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OleszekMowinski.ProjectApp.DAOFile", "OleszekMowinski.ProjectApp.DAOFile\OleszekMowinski.ProjectApp.DAOFile.csproj", "{862B0E9F-6ADB-4AE7-B0AE-DB5951FC80EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{8C82893E-2BD6-4E5A-BBEE-0E91D506328A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C82893E-2BD6-4E5A-BBEE-0E91D506328A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C82893E-2BD6-4E5A-BBEE-0E91D506328A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{862B0E9F-6ADB-4AE7-B0AE-DB5951FC80EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{862B0E9F-6ADB-4AE7-B0AE-DB5951FC80EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{862B0E9F-6ADB-4AE7-B0AE-DB5951FC80EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{862B0E9F-6ADB-4AE7-B0AE-DB5951FC80EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

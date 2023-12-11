@@ -2,8 +2,9 @@
 using OleszekMowinski.ProjectApp.Interfaces;
 using System.Text.Json.Serialization;
 
-namespace OleszekMowinski.ProjectApp.DAOMock.DataObjects
+namespace OleszekMowinski.ProjectApp.DAOSQL.DataObjects
 {
+    [Serializable]
     internal class Airplane : IAirplane
     {
         public Guid Id { get; set; }
@@ -11,6 +12,7 @@ namespace OleszekMowinski.ProjectApp.DAOMock.DataObjects
         public DateTime Introduction { get; set; }
         public int Weight { get; set; }
         public AirplaneStatus Status { get; set; }
+        [JsonIgnore]
         public IManufacturer Manufacturer { get; set; }
         public Guid ManufacturerId { get; set; }
     }

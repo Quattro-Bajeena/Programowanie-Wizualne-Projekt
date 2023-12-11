@@ -3,11 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using OleszekMowinski.ProjectApp.DAOEF;
+using OleszekMowinski.ProjectApp.DAOSQL;
 
 #nullable disable
 
-namespace OleszekMowinski.ProjectApp.DAOEF.Migrations
+namespace OleszekMowinski.ProjectApp.DAOSQL.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot

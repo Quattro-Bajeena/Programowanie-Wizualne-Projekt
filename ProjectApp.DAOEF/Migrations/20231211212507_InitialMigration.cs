@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace OleszekMowinski.ProjectApp.DAOEF.Migrations
+namespace OleszekMowinski.ProjectApp.DAOSQL.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration

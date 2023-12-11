@@ -1,7 +1,7 @@
 ﻿using OleszekMowinski.ProjectApp.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
-namespace OleszekMowinski.ProjectApp.DAOEF.DataObjects
+namespace OleszekMowinski.ProjectApp.DAOSQL.DataObjects
 {
     public class Manufacturer : IManufacturer
     {

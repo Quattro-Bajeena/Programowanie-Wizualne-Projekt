@@ -1,63 +1,56 @@
 ﻿using OleszekMowinski.ProjectApp.Core;
-using OleszekMowinski.ProjectApp.DAOMock.DataObjects;
+using OleszekMowinski.ProjectApp.DAOFile.DataObjects;
+using OleszekMowinski.ProjectApp.DAOSQL.DataObjects;
 using OleszekMowinski.ProjectApp.Interfaces;
-using System.Net.NetworkInformation;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace OleszekMowinski.ProjectApp.DAOMock
+namespace OleszekMowinski.ProjectApp.DAOFile
 {
-    public class DAOMock : IDAO
+    public class DAOSerializable : IDAO
     {
-        private List<IAirplane> _airplanes;
-        private List<IManufacturer> _manufacturers;
+        private Database _database = new Database();
+        const string DATABASE_FILE = "database.json";
 
-
-        public DAOMock()
+        public DAOSerializable()
         {
-            _manufacturers = new List<IManufacturer>()
-            {
-                new Manufacturer() {Id = Guid.NewGuid(), Name = "Lockheed Martin", Founded = new DateTime(1995,1,1), Headquarters = "Fort Worth", President="James D. Taiclet"},
-                new Manufacturer() {Id = Guid.NewGuid(), Name = "Dassault", Founded = new DateTime(1929,1,1), Headquarters = "Paris", President="Eric Trappier"}
-            };
+            Deserialize();
+        }
 
-            _airplanes = new List<IAirplane>()
+        private void Deserialize()
+        {
+            if (File.Exists(DATABASE_FILE))
             {
-                new Airplane()
-                {
-                    Id = Guid.NewGuid(),
-                    Manufacturer = _manufacturers[0],
-                    Name="F-16 Raptor",
-                    Introduction = new DateTime(1978,5,18),
-                    Status = AirplaneStatus.InService,
-                    Weight = 56533
-                },
-                new Airplane()
-                {
-                    Id = Guid.NewGuid(),
-                    Manufacturer = _manufacturers[0],
-                    Name="F-22 Raptor",
-                    Introduction = new DateTime(2005,12,15),
-                    Status = AirplaneStatus.InService,
-                    Weight = 12312
-                },
-                new Airplane()
-                {
-                    Id = Guid.NewGuid(),
-                    Manufacturer = _manufacturers[1],
-                    Name="Rafale",
-                    Introduction = new DateTime(2001,5,18),
-                    Status = AirplaneStatus.InService,
-                    Weight = 9979
-                },
-            };
+                var json = File.ReadAllText(DATABASE_FILE);
+                _database = JsonSerializer.Deserialize<Database>(json);
+            }
+            else
+            {
+                Serialize();
+            }
+            
+        }
+
+        private void Serialize()
+        {
+            string jsonString = JsonSerializer.Serialize(_database);
+            File.WriteAllText(DATABASE_FILE, jsonString);
         }
 
         public IAirplane CreateNewAirplane(string name, DateTime introduction, int weight, AirplaneStatus status, Guid manufacturerId)
         {
-            var airplane = new Airplane 
-            { 
-                Id = Guid.NewGuid(), Name = name, Introduction = introduction, Weight = weight, Status = status, ManufacturerId = manufacturerId, Manufacturer = GetManufacturer(manufacturerId) 
+            var airplane = new Airplane
+            {
+                Id = Guid.NewGuid(),
+                Name = name,
+                Introduction = introduction,
+                Weight = weight,
+                Status = status,
+                ManufacturerId = manufacturerId,
+                Manufacturer = GetManufacturer(manufacturerId)
             };
-            _airplanes.Add(airplane);
+            _database.Airplanes.Add(airplane);
+            Serialize();
             return airplane;
         }
 
@@ -71,37 +64,40 @@ namespace OleszekMowinski.ProjectApp.DAOMock
                 Headquarters = headquaters,
                 President = president
             };
-            _manufacturers.Add(manufacturer);
+            _database.Manufacturers.Add(manufacturer);
+            Serialize();
             return manufacturer;
         }
 
         public void DeleteAirplane(Guid id)
         {
-            var airplane = _airplanes.FirstOrDefault(x => x.Id == id);
-            if(airplane != null)
+            var airplane = _database.Airplanes.FirstOrDefault(x => x.Id == id);
+            if (airplane != null)
             {
-                _airplanes.Remove(airplane);
+                _database.Airplanes.Remove(airplane);
+                Serialize();
             }
         }
 
         public void DeleteManufacturer(Guid id)
         {
-            var manufacturer = _manufacturers.FirstOrDefault(x => x.Id == id);
+            var manufacturer = _database.Manufacturers.FirstOrDefault(x => x.Id == id);
             if (manufacturer != null)
             {
-                _manufacturers.Remove(manufacturer);
+                _database.Manufacturers.Remove(manufacturer);
+                Serialize();
             }
         }
 
         public IEnumerable<IAirplane> GetAirplanes()
         {
-            return _airplanes;
+            return _database.Airplanes;
         }
 
 
         public IEnumerable<IAirplane> GetFilteredAirplanes(AirplaneFilter filter)
         {
-            var filtered = _airplanes.AsQueryable();
+            var filtered = _database.Airplanes.AsQueryable();
 
             if (filter.Introduction != null)
             {
@@ -143,22 +139,24 @@ namespace OleszekMowinski.ProjectApp.DAOMock
 
         public IEnumerable<IManufacturer> GetManufacturers()
         {
-            return _manufacturers;
+            return _database.Manufacturers;
         }
 
         public IAirplane? GetAirplane(Guid id)
         {
-            return _airplanes.FirstOrDefault(a => a.Id == id);
+            var airplane = _database.Airplanes.FirstOrDefault(a => a.Id == id);
+            airplane.Manufacturer = GetManufacturer(airplane.ManufacturerId);
+            return airplane;
         }
 
         public IManufacturer? GetManufacturer(Guid id)
         {
-            return _manufacturers.FirstOrDefault(x => x.Id == id);   
+            return _database.Manufacturers.FirstOrDefault(x => x.Id == id);
         }
 
         public IAirplane? EditAirplane(Guid id, string name, DateTime introduction, int weight, AirplaneStatus status, Guid manufacturerId)
         {
-            var modifiedAirplane = _airplanes.FirstOrDefault(a => a.Id == id);
+            var modifiedAirplane = _database.Airplanes.FirstOrDefault(a => a.Id == id);
             if (modifiedAirplane != null)
             {
                 modifiedAirplane.Name = name;
@@ -166,6 +164,7 @@ namespace OleszekMowinski.ProjectApp.DAOMock
                 modifiedAirplane.Manufacturer = GetManufacturer(manufacturerId);
                 modifiedAirplane.ManufacturerId = manufacturerId;
                 modifiedAirplane.Status = status;
+                Serialize();
                 return modifiedAirplane;
 
             }
@@ -177,15 +176,15 @@ namespace OleszekMowinski.ProjectApp.DAOMock
 
         public IManufacturer? EditManufacturer(Guid id, string name, DateTime founded, string headquaters, string president)
         {
-            var modifiedManufacturer = _manufacturers.FirstOrDefault(a => a.Id == id);
+            var modifiedManufacturer = _database.Manufacturers.FirstOrDefault(a => a.Id == id);
             if (modifiedManufacturer != null)
             {
                 modifiedManufacturer.Name = name;
                 modifiedManufacturer.Founded = founded;
                 modifiedManufacturer.Headquarters = headquaters;
                 modifiedManufacturer.President = president;
+                Serialize();
                 return modifiedManufacturer;
-
             }
             else
             {
