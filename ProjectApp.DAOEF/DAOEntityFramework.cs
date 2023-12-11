@@ -2,11 +2,6 @@
 using OleszekMowinski.ProjectApp.Core;
 using OleszekMowinski.ProjectApp.DAOEF.DataObjects;
 using OleszekMowinski.ProjectApp.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OleszekMowinski.ProjectApp.DAOEF
 {
@@ -14,7 +9,8 @@ namespace OleszekMowinski.ProjectApp.DAOEF
     {
 
         private readonly DataContext _dataContext;
-        public DAOEntityFramework() { 
+        public DAOEntityFramework()
+        {
             _dataContext = new DataContext();
         }
 
@@ -28,13 +24,22 @@ namespace OleszekMowinski.ProjectApp.DAOEF
                 Introduction = introduction,
                 Weight = weight,
                 Status = status,
-                ManufacturerId = manufacturerId
+                ManufacturerIdEF = manufacturerId
             };
             _dataContext.Add(newAirplane);
             _dataContext.SaveChanges();
 
-            return _dataContext.Airplanes.Include(a => a.ManufacturerEf).First(a => a.Id == id);
-            
+            return _dataContext.Airplanes.First(a => a.Id == id);
+
+        }
+
+        public IAirplane CreateNewAirplane(IAirplane airplane)
+        {
+            var airplaneId = Guid.NewGuid();
+            airplane.Id = airplaneId;
+            _dataContext.Add(airplane);
+            _dataContext.SaveChanges();
+            return GetAirplane(airplaneId)!;
         }
 
         public IManufacturer CreateNewManufacturer(string name, DateTime founded, string headquaters, string president)
@@ -52,6 +57,15 @@ namespace OleszekMowinski.ProjectApp.DAOEF
             _dataContext.SaveChanges();
             return _dataContext.Manufacturers.First(a => a.Id == id);
 
+        }
+
+        public IManufacturer CreateNewManufacturer(IManufacturer manufacturer)
+        {
+            var manufacturerId = Guid.NewGuid();
+            manufacturer.Id = manufacturerId;
+            _dataContext.Add(manufacturer);
+            _dataContext.SaveChanges();
+            return GetManufacturer(manufacturerId)!;
         }
 
         public void DeleteAirplane(Guid id)
@@ -81,14 +95,14 @@ namespace OleszekMowinski.ProjectApp.DAOEF
 
         public IEnumerable<IAirplane> GetAirplanes()
         {
-            return _dataContext.Airplanes.Include(a => a.ManufacturerEf).ToList();
+            return _dataContext.Airplanes.ToList();
         }
 
         public IEnumerable<IAirplane> GetFilteredAirplanes(AirplaneFilter filter)
         {
-            var filtered = _dataContext.Airplanes.Include(a => a.ManufacturerEf).AsQueryable();
+            var filtered = _dataContext.Airplanes.AsQueryable();
 
-            if(filter.Introduction != null)
+            if (filter.Introduction != null)
             {
                 if (filter.BeforeIntroduction)
                 {
@@ -100,9 +114,9 @@ namespace OleszekMowinski.ProjectApp.DAOEF
                 }
             }
 
-            if(filter.Weight != null) 
-            { 
-                if(filter.BelowWeight)
+            if (filter.Weight != null)
+            {
+                if (filter.BelowWeight)
                 {
                     filtered = filtered.Where(a => a.Weight <= filter.Weight);
                 }
@@ -113,37 +127,59 @@ namespace OleszekMowinski.ProjectApp.DAOEF
             }
 
 
-            if(filter.Status != null)
+            if (filter.Status != null)
             {
                 filtered = filtered.Where(a => a.Status == filter.Status);
             }
 
-            if(filter.ManufacturerId != null)
+            if (filter.ManufacturerId != null)
             {
-                filtered = filtered.Where(a => a.ManufacturerId == filter.ManufacturerId);
+                filtered = filtered.Where(a => a.ManufacturerIdEF == filter.ManufacturerId);
             }
 
             return filtered.ToList();
-            
+
         }
 
         public IManufacturer? GetManufacturer(Guid id)
         {
-            return _dataContext.Manufacturers.FirstOrDefault(a => a.Id == id);
+            return _dataContext.Manufacturers.Include(m => m.Airplanes).FirstOrDefault(a => a.Id == id);
         }
 
         public IEnumerable<IManufacturer> GetManufacturers()
         {
-            return _dataContext.Manufacturers;
+            return _dataContext.Manufacturers.Include(m => m.Airplanes);
         }
 
-        public IAirplane ModifyAirplane(IAirplane airplane)
+        public IAirplane EditAirplane(Guid id, string name, DateTime introduction, int weight, AirplaneStatus status, Guid manufacturerId)
+        {
+            var modifedAirplane = _dataContext.Airplanes.FirstOrDefault(a => a.Id == id);
+            if (modifedAirplane != null)
+            {
+                //modifedAirplane.Manufacturer = airplane.Manufacturer;
+                modifedAirplane.ManufacturerIdEF = manufacturerId;
+                modifedAirplane.Name = name;
+                modifedAirplane.Introduction = introduction;
+                modifedAirplane.Status = status;
+                modifedAirplane.Weight = weight;
+                _dataContext.Update(modifedAirplane);
+                _dataContext.SaveChanges();
+
+                return _dataContext.Airplanes.First(a => a.Id == id);
+            }
+            else
+            {
+                return new Airplane { Id = id, Name = name, Introduction = introduction, Weight = weight, Status = status, ManufacturerIdEF = manufacturerId };
+            }
+        }
+
+        public IAirplane EditAirplane(IAirplane airplane)
         {
             var modifedAirplane = _dataContext.Airplanes.FirstOrDefault(a => a.Id == airplane.Id);
             if (modifedAirplane != null)
             {
-                modifedAirplane.Manufacturer = airplane.Manufacturer;
-                modifedAirplane.ManufacturerId = airplane.Manufacturer.Id;
+                //modifedAirplane.Manufacturer = airplane.Manufacturer;
+                modifedAirplane.ManufacturerIdEF = airplane.Manufacturer.Id;
                 modifedAirplane.Name = airplane.Name;
                 modifedAirplane.Introduction = airplane.Introduction;
                 modifedAirplane.Status = airplane.Status;
@@ -159,7 +195,27 @@ namespace OleszekMowinski.ProjectApp.DAOEF
             }
         }
 
-        public IManufacturer ModifyManufacturer(IManufacturer manufacturer)
+        public IManufacturer EditManufacturer(Guid id, string name, DateTime founded, string headquaters, string president)
+        {
+            var modifedManufacturer = _dataContext.Manufacturers.FirstOrDefault(m => m.Id == id);
+            if (modifedManufacturer != null)
+            {
+                modifedManufacturer.Name = name;
+                modifedManufacturer.President = president;
+                modifedManufacturer.Headquarters = headquaters;
+                modifedManufacturer.Founded = founded;
+                _dataContext.Update(modifedManufacturer);
+                _dataContext.SaveChanges();
+
+                return _dataContext.Manufacturers.Include(m => m.Airplanes).First(a => a.Id == id);
+            }
+            else
+            {
+                return new Manufacturer { Id = id, Name = name, Founded = founded, Headquarters = headquaters, President = president };
+            }
+        }
+
+        public IManufacturer EditManufacturer(IManufacturer manufacturer)
         {
             var modifedManufacturer = _dataContext.Manufacturers.FirstOrDefault(m => m.Id == manufacturer.Id);
             if (modifedManufacturer != null)
@@ -171,7 +227,7 @@ namespace OleszekMowinski.ProjectApp.DAOEF
                 _dataContext.Update(modifedManufacturer);
                 _dataContext.SaveChanges();
 
-                return _dataContext.Manufacturers.First(a => a.Id == manufacturer.Id);
+                return _dataContext.Manufacturers.Include(m => m.Airplanes).First(a => a.Id == manufacturer.Id);
             }
             else
             {

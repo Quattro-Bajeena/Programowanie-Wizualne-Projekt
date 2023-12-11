@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -35,23 +34,23 @@ namespace OleszekMowinski.ProjectApp.DAOEF.Migrations
                     Introduction = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Weight = table.Column<int>(type: "INTEGER", nullable: false),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),
-                    ManufacturerId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    ManufacturerIdEF = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Airplanes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Airplanes_Manufacturers_ManufacturerId",
-                        column: x => x.ManufacturerId,
+                        name: "FK_Airplanes_Manufacturers_ManufacturerIdEF",
+                        column: x => x.ManufacturerIdEF,
                         principalTable: "Manufacturers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Airplanes_ManufacturerId",
+                name: "IX_Airplanes_ManufacturerIdEF",
                 table: "Airplanes",
-                column: "ManufacturerId");
+                column: "ManufacturerIdEF");
         }
 
         /// <inheritdoc />

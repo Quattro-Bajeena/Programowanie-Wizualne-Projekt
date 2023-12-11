@@ -1,9 +1,4 @@
 ﻿using OleszekMowinski.ProjectApp.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OleszekMowinski.ProjectApp.Interfaces
 {
@@ -13,10 +8,14 @@ namespace OleszekMowinski.ProjectApp.Interfaces
         IManufacturer? GetManufacturer(Guid id);
         IEnumerable<IAirplane> GetAirplanes();
         IEnumerable<IManufacturer> GetManufacturers();
+        IAirplane CreateNewAirplane(IAirplane airplane);
+        IManufacturer CreateNewManufacturer(IManufacturer manufacturer);
         IAirplane CreateNewAirplane(string name, DateTime introduction, int weight, AirplaneStatus status, Guid manufacturerId);
         IManufacturer CreateNewManufacturer(string name, DateTime founded, string headquaters, string president);
-        IAirplane ModifyAirplane(IAirplane airplane);
-        IManufacturer ModifyManufacturer(IManufacturer manufacturer);
+        IAirplane EditAirplane(Guid id, string name, DateTime introduction, int weight, AirplaneStatus status, Guid manufacturerId);
+        IManufacturer EditManufacturer(Guid id, string name, DateTime founded, string headquaters, string president);
+        IAirplane EditAirplane(IAirplane airplane);
+        IManufacturer EditManufacturer(IManufacturer manufacturer);
         IEnumerable<IAirplane> GetFilteredAirplanes(AirplaneFilter filter);
 
         void DeleteAirplane(Guid id);

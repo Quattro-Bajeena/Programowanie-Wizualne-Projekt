@@ -1,4 +1,4 @@
-﻿@model OleszekMowinski.ProjectApp.DAOEF.DataObjects.Airplane
+﻿@model OleszekMowinski.ProjectApp.Interfaces.IAirplane
 
 @{
     ViewData["Title"] = "Delete";
@@ -36,10 +36,10 @@
             @Html.DisplayFor(model => model.Status)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ManufacturerEf)
+            @Html.DisplayNameFor(model => model.Manufacturer)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ManufacturerEf.Headquarters)
+            @Html.DisplayFor(model => model.Manufacturer.Headquarters)
         </dd>
     </dl>
     

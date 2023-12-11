@@ -14,12 +14,15 @@ namespace OleszekMowinski.ProjectApp.DAOEF.DataObjects
         public int Weight { get; set; }
         public AirplaneStatus Status { get; set; }
 
-        
+
         [NotMapped]
-        public IManufacturer Manufacturer { get => ManufacturerEf; set { ManufacturerEf = (Manufacturer)value; } }
+        IManufacturer IAirplane.Manufacturer { get => Manufacturer; set => Manufacturer = (Manufacturer)value; }
         [Column("Manufacturer")]
-        public Manufacturer ManufacturerEf { get; set; }
-        [ForeignKey("Manufacturer")]
-        public Guid ManufacturerId { get; set; }
+        [ForeignKey("ManufacturerIdEF")]
+        public Manufacturer Manufacturer { get; set; }
+        [Column("ManufacturerIdEF")]
+        public Guid ManufacturerIdEF { get; set; }
+        [NotMapped]
+        public Guid ManufacturerId { get => ManufacturerIdEF; set => ManufacturerIdEF = value; }
     }
 }

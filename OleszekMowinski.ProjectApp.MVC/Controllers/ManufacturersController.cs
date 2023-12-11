@@ -1,40 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using OleszekMowinski.ProjectApp.DAOEF;
-using OleszekMowinski.ProjectApp.DAOEF.DataObjects;
+﻿using Microsoft.AspNetCore.Mvc;
+using OleszekMowinski.ProjectApp.BLC;
 
 namespace OleszekMowinski.ProjectApp.MVC.Controllers
 {
     public class ManufacturersController : Controller
     {
-        private readonly DataContext _context;
+        private readonly BuisnessLogicComponent _blc;
 
-        public ManufacturersController(DataContext context)
+        public ManufacturersController(BuisnessLogicComponent buisnessLogicComponent)
         {
-            _context = context;
+            _blc = buisnessLogicComponent;
         }
 
         // GET: Manufacturers
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Manufacturers.ToListAsync());
+            return View(_blc.GetManufacturers());
         }
 
         // GET: Manufacturers/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public IActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var manufacturer = await _context.Manufacturers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var manufacturer = _blc.GetManufacturer((Guid)id);
             if (manufacturer == null)
             {
                 return NotFound();
@@ -54,27 +46,25 @@ namespace OleszekMowinski.ProjectApp.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Founded,Headquarters,President")] Manufacturer manufacturer)
+        public IActionResult Create(string Name, DateTime Founded, string Headquarters, string President)
         {
             if (ModelState.IsValid)
             {
-                manufacturer.Id = Guid.NewGuid();
-                _context.Add(manufacturer);
-                await _context.SaveChangesAsync();
+                _blc.CreateNewManufacturer(Name, Founded, Headquarters, President);
                 return RedirectToAction(nameof(Index));
             }
-            return View(manufacturer);
+            return View(new { Name, Founded, Headquarters, President });
         }
 
         // GET: Manufacturers/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public IActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var manufacturer = await _context.Manufacturers.FindAsync(id);
+            var manufacturer = _blc.GetManufacturer((Guid)id);
             if (manufacturer == null)
             {
                 return NotFound();
@@ -87,46 +77,26 @@ namespace OleszekMowinski.ProjectApp.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Founded,Headquarters,President")] Manufacturer manufacturer)
+        public IActionResult Edit(Guid Id, string Name, DateTime Founded, string Headquarters, string President)
         {
-            if (id != manufacturer.Id)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(manufacturer);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ManufacturerExists(manufacturer.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _blc.EditManufacturer(Id, Name, Founded, Headquarters, President);
                 return RedirectToAction(nameof(Index));
             }
-            return View(manufacturer);
+            return View(new { Name, Founded, Headquarters, President });
         }
 
         // GET: Manufacturers/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public IActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var manufacturer = await _context.Manufacturers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var manufacturer = _blc.GetManufacturer((Guid)id);
             if (manufacturer == null)
             {
                 return NotFound();
@@ -138,21 +108,10 @@ namespace OleszekMowinski.ProjectApp.MVC.Controllers
         // POST: Manufacturers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public IActionResult DeleteConfirmed(Guid id)
         {
-            var manufacturer = await _context.Manufacturers.FindAsync(id);
-            if (manufacturer != null)
-            {
-                _context.Manufacturers.Remove(manufacturer);
-            }
-
-            await _context.SaveChangesAsync();
+            _blc.DeleteManufacturer(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ManufacturerExists(Guid id)
-        {
-            return _context.Manufacturers.Any(e => e.Id == id);
         }
     }
 }

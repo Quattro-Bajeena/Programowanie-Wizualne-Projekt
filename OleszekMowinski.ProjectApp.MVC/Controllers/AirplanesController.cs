@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using OleszekMowinski.ProjectApp.BLC;
-using OleszekMowinski.ProjectApp.DAOEF;
-using OleszekMowinski.ProjectApp.DAOEF.DataObjects;
+using OleszekMowinski.ProjectApp.Core;
 
 namespace OleszekMowinski.ProjectApp.MVC.Controllers
 {
@@ -22,9 +16,10 @@ namespace OleszekMowinski.ProjectApp.MVC.Controllers
         }
 
         // GET: Airplanes
-        public IActionResult Index()
+        public IActionResult Index(AirplaneFilter filter)
         {
-            var dataContext = _blc.GetAirplanes().ToList();
+            var dataContext = _blc.GetFilteredAirplanes(filter).ToList();
+            ViewData["ManufacturerId"] = new SelectList(_blc.GetManufacturers(), "Id", "Name");
             return View(dataContext);
         }
 
@@ -48,7 +43,7 @@ namespace OleszekMowinski.ProjectApp.MVC.Controllers
         // GET: Airplanes/Create
         public IActionResult Create()
         {
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Headquarters");
+            ViewData["ManufacturerId"] = new SelectList(_blc.GetManufacturers(), "Id", "Name");
             return View();
         }
 
@@ -57,33 +52,31 @@ namespace OleszekMowinski.ProjectApp.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Introduction,Weight,Status,ManufacturerId")] Airplane airplane)
+        public IActionResult Create(string Name, DateTime Introduction, int Weight, AirplaneStatus Status, Guid ManufacturerId)
         {
             if (ModelState.IsValid)
             {
-                airplane.Id = Guid.NewGuid();
-                _context.Add(airplane);
-                await _context.SaveChangesAsync();
+                _blc.CreateNewAirplane(Name, Introduction, Weight, Status, ManufacturerId);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Headquarters", airplane.ManufacturerId);
-            return View(airplane);
+            ViewData["ManufacturerId"] = new SelectList(_blc.GetManufacturers(), "Id", "Name", ManufacturerId);
+            return View(new { Name, Introduction, Weight, Status, ManufacturerId });
         }
 
         // GET: Airplanes/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public IActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var airplane = await _context.Airplanes.FindAsync(id);
+            var airplane = _blc.GetAirplane((Guid)id);
             if (airplane == null)
             {
                 return NotFound();
             }
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Headquarters", airplane.ManufacturerId);
+            ViewData["ManufacturerId"] = new SelectList(_blc.GetManufacturers(), "Id", "Name", airplane.ManufacturerId);
             return View(airplane);
         }
 
@@ -92,48 +85,26 @@ namespace OleszekMowinski.ProjectApp.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Introduction,Weight,Status,ManufacturerId")] Airplane airplane)
+        public IActionResult Edit(Guid Id, string Name, DateTime Introduction, int Weight, AirplaneStatus Status, Guid ManufacturerId)
         {
-            if (id != airplane.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(airplane);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AirplaneExists(airplane.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _blc.EditAirplane(Id, Name, Introduction, Weight, Status, ManufacturerId);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ManufacturerId"] = new SelectList(_context.Manufacturers, "Id", "Headquarters", airplane.ManufacturerId);
-            return View(airplane);
+            ViewData["ManufacturerId"] = new SelectList(_blc.GetManufacturers(), "Id", "Name", ManufacturerId);
+            return View(new { Id, Name, Introduction, Weight, Status, ManufacturerId });
         }
 
         // GET: Airplanes/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public IActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var airplane = await _context.Airplanes
-                .Include(a => a.ManufacturerEf)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var airplane = _blc.GetAirplane((Guid)id);
             if (airplane == null)
             {
                 return NotFound();
@@ -145,21 +116,10 @@ namespace OleszekMowinski.ProjectApp.MVC.Controllers
         // POST: Airplanes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public IActionResult DeleteConfirmed(Guid id)
         {
-            var airplane = await _context.Airplanes.FindAsync(id);
-            if (airplane != null)
-            {
-                _context.Airplanes.Remove(airplane);
-            }
-
-            await _context.SaveChangesAsync();
+            _blc.DeleteAirplane(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool AirplaneExists(Guid id)
-        {
-            return _context.Airplanes.Any(e => e.Id == id);
         }
     }
 }

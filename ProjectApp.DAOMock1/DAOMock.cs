@@ -24,7 +24,7 @@ namespace OleszekMowinski.ProjectApp.DAOMock1
                 {
                     Id = Guid.NewGuid(),
                     Manufacturer = manufacturers[0],
-                    Name="F-22 Raptor",
+                    Name="F-16 Raptor",
                     Introduction = new DateTime(1978,5,18),
                     Status = AirplaneStatus.InService,
                     Weight = 56533
@@ -62,12 +62,12 @@ namespace OleszekMowinski.ProjectApp.DAOMock1
 
         public void DeleteAirplane(Guid id)
         {
-            
+
         }
 
         public void DeleteManufacturer(Guid id)
         {
-            
+
         }
 
         public IEnumerable<IAirplane> GetAirplanes()
@@ -87,12 +87,42 @@ namespace OleszekMowinski.ProjectApp.DAOMock1
             return manufacturers;
         }
 
-        public IAirplane ModifyAirplane(IAirplane airplane)
+        public IAirplane EditAirplane(IAirplane airplane)
         {
             throw new NotImplementedException();
         }
 
-        public IManufacturer ModifyManufacturer(IManufacturer manufacturer)
+        public IManufacturer EditManufacturer(IManufacturer manufacturer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAirplane? GetAirplane(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IManufacturer? GetManufacturer(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAirplane CreateNewAirplane(IAirplane airplane)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IManufacturer CreateNewManufacturer(IManufacturer manufacturer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAirplane EditAirplane(Guid id, string name, DateTime introduction, int weight, AirplaneStatus status, Guid manufacturerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IManufacturer EditManufacturer(Guid id, string name, DateTime founded, string headquaters, string president)
         {
             throw new NotImplementedException();
         }

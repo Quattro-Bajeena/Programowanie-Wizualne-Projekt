@@ -4,7 +4,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<BuisnessLogicComponent>();
+builder.Services.AddSingleton(
+    serviceProvider => new BuisnessLogicComponent(serviceProvider.GetService<IConfiguration>().GetValue<string>("DAOLibraryName"))
+);
 
 var app = builder.Build();
 

@@ -12,5 +12,18 @@ namespace OleszekMowinski.ProjectApp.DAOEF
         {
             optionsBuilder.UseSqlite("Data Source=ProjectApp.db");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Airplane>()
+                .Ignore(a => a.ManufacturerId);
+
+            modelBuilder.Entity<Manufacturer>()
+                .HasMany(a => a.Airplanes)
+                .WithOne(a => a.Manufacturer)
+                .HasForeignKey(a => a.ManufacturerIdEF);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

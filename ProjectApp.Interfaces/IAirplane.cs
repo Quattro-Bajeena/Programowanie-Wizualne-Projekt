@@ -9,6 +9,7 @@ namespace OleszekMowinski.ProjectApp.Interfaces
         DateTime Introduction { get; set; }
         int Weight { get; set; }
         AirplaneStatus Status { get; set; }
+        Guid ManufacturerId { get; set; }
         IManufacturer Manufacturer { get; set; }
 
     }

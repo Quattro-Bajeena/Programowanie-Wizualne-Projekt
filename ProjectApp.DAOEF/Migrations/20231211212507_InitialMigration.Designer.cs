@@ -11,7 +11,7 @@ using OleszekMowinski.ProjectApp.DAOEF;
 namespace OleszekMowinski.ProjectApp.DAOEF.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231208223201_InitialMigration")]
+    [Migration("20231211212507_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -29,8 +29,9 @@ namespace OleszekMowinski.ProjectApp.DAOEF.Migrations
                     b.Property<DateTime>("Introduction")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("ManufacturerId")
-                        .HasColumnType("TEXT");
+                    b.Property<Guid>("ManufacturerIdEF")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("ManufacturerIdEF");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -44,7 +45,7 @@ namespace OleszekMowinski.ProjectApp.DAOEF.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ManufacturerId");
+                    b.HasIndex("ManufacturerIdEF");
 
                     b.ToTable("Airplanes");
                 });
@@ -77,13 +78,13 @@ namespace OleszekMowinski.ProjectApp.DAOEF.Migrations
 
             modelBuilder.Entity("OleszekMowinski.ProjectApp.DAOEF.DataObjects.Airplane", b =>
                 {
-                    b.HasOne("OleszekMowinski.ProjectApp.DAOEF.DataObjects.Manufacturer", "ManufacturerEf")
+                    b.HasOne("OleszekMowinski.ProjectApp.DAOEF.DataObjects.Manufacturer", "Manufacturer")
                         .WithMany("Airplanes")
-                        .HasForeignKey("ManufacturerId")
+                        .HasForeignKey("ManufacturerIdEF")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ManufacturerEf");
+                    b.Navigation("Manufacturer");
                 });
 
             modelBuilder.Entity("OleszekMowinski.ProjectApp.DAOEF.DataObjects.Manufacturer", b =>

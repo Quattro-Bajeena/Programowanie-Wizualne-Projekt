@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -18,7 +19,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ProjectApp.BLC\OleszekMowinski.ProjectApp.BLC.csproj" />
     <ProjectReference Include="..\ProjectApp.Core\OleszekMowinski.ProjectApp.Core.csproj" />
-    <ProjectReference Include="..\ProjectApp.DAOEF\OleszekMowinski.ProjectApp.DAOEF.csproj" />
     <ProjectReference Include="..\ProjectApp.Interfaces\OleszekMowinski.ProjectApp.Interfaces.csproj" />
   </ItemGroup>
 
