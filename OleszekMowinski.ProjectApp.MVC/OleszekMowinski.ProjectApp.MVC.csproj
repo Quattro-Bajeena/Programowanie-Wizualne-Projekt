@@ -22,4 +22,19 @@
     <ProjectReference Include="..\ProjectApp.Interfaces\OleszekMowinski.ProjectApp.Interfaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="DLLs\OleszekMowinski.ProjectApp.DAOFile.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DLLs\OleszekMowinski.ProjectApp.DAOMock.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DLLs\OleszekMowinski.ProjectApp.DAOSQL.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="OleszekMowinskiDatabase.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

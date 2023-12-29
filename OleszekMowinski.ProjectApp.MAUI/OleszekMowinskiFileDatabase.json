@@ -1,0 +1,36 @@
+{
+    "Airplanes": [
+        {
+            "Id": "21052bf4-9a2a-434e-86fa-22076375581b",
+            "Name": "F-22 Raptor",
+            "Introduction": "2023-11-30T01:01:00",
+            "Weight": 1232,
+            "Status": 0,
+            "ManufacturerId": "acb74391-ee58-4a8c-b61b-afd600a18b45"
+        },
+        {
+            "Id": "737fff99-7de6-4473-932b-93925d45cfe7",
+            "Name": "Rafale",
+            "Introduction": "2023-09-12T01:01:00",
+            "Weight": 23,
+            "Status": 1,
+            "ManufacturerId": "9d2ec5d5-b4f6-45ba-bb36-156e488f97b2"
+        }
+    ],
+    "Manufacturers": [
+        {
+            "Id": "9d2ec5d5-b4f6-45ba-bb36-156e488f97b2",
+            "Name": "Dassault",
+            "Founded": "2023-12-08T01:01:00",
+            "Headquarters": "asda",
+            "President": "asda"
+        },
+        {
+            "Id": "acb74391-ee58-4a8c-b61b-afd600a18b45",
+            "Name": "Lockheed Martin",
+            "Founded": "2023-10-05T02:03:00",
+            "Headquarters": "USA",
+            "President": "Buisnnesman"
+        }
+    ]
+}

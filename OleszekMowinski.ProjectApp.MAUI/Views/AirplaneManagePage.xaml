@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="OleszekMowinski.ProjectApp.MAUI.Views.ManageAirplanePage"
+             x:Class="OleszekMowinski.ProjectApp.MAUI.Views.AirplaneManagePage"
 			 xmlns:viewmodel="clr-namespace:OleszekMowinski.ProjectApp.MAUI.ViewModels"
 			 xmlns:core="clr-namespace:OleszekMowinski.ProjectApp.Core;assembly=OleszekMowinski.ProjectApp.Core"
-			 x:DataType="viewmodel:ManageAirplaneViewModel"
+			 x:DataType="viewmodel:AirplaneManageViewModel"
 			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="{Binding Title}">
 

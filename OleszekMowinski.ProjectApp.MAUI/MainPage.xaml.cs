@@ -4,7 +4,6 @@ namespace OleszekMowinski.ProjectApp.MAUI
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
 
         public MainPage()
         {
@@ -12,21 +11,14 @@ namespace OleszekMowinski.ProjectApp.MAUI
             
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
-        {
-            count++;
-
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
-        }
-
         private void AirplaneButtonClicked(object sender, EventArgs e)
         {
             Shell.Current.GoToAsync(nameof(AirplaneListPage));
+        }
+
+        private void ManufacturersButtonClicked(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync(nameof(ManufacturerListPage));
         }
     }
 

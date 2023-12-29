@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace OleszekMowinski.ProjectApp.MAUI.ViewModels
 {
     //[QueryProperty(nameof(EditedAirplane), "EditedAirplane")]
-    public partial class ManageAirplaneViewModel : ObservableObject, IQueryAttributable
+    public partial class AirplaneManageViewModel : ObservableObject, IQueryAttributable
     {
         private readonly BuisnessLogicComponent _blc;
         [ObservableProperty]
@@ -44,7 +44,7 @@ namespace OleszekMowinski.ProjectApp.MAUI.ViewModels
         public IReadOnlyList<string> AllAirplaneStatuses { get; } = Enum.GetNames(typeof(AirplaneStatus));
         public IReadOnlyList<IManufacturer> AllManufacturers { get; }
 
-        public ManageAirplaneViewModel(BuisnessLogicComponent buisnessLogicComponent)
+        public AirplaneManageViewModel(BuisnessLogicComponent buisnessLogicComponent)
         {
             Title = "Add new Airplane";
             _blc = buisnessLogicComponent;

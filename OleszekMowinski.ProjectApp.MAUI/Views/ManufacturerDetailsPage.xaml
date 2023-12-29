@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewmodel="clr-namespace:OleszekMowinski.ProjectApp.MAUI.ViewModels"
+             x:DataType="viewmodel:ManufacturerDetailsViewModel"
+             x:Class="OleszekMowinski.ProjectApp.MAUI.Views.ManufacturerDetailsPage"
+             Title="Manufacturer Details">
+	<VerticalStackLayout Spacing="10" Margin="10" Padding="10">
+		<HorizontalStackLayout>
+			<Label Text="Name: "/>
+			<Label Text="{Binding Manufacturer.Name}"/>
+		</HorizontalStackLayout>
+		<HorizontalStackLayout>
+			<Label Text="Founding date: "/>
+			<Label Text="{Binding Manufacturer.Founded}"/>
+		</HorizontalStackLayout>
+		<HorizontalStackLayout>
+			<Label Text="Headquaters: "/>
+			<Label Text="{Binding Manufacturer.Headquarters}"/>
+		</HorizontalStackLayout>
+		<HorizontalStackLayout>
+			<Label Text="President: "/>
+			<Label Text="{Binding Manufacturer.President}"/>
+		</HorizontalStackLayout>
+		<Button Text="Return" Command="{Binding HomeCommand}"/>
+	</VerticalStackLayout>
+</ContentPage>

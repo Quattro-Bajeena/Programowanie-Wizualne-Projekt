@@ -9,7 +9,7 @@
 			 x:DataType="viewmodel:AirplaneListViewModel"
              Title="Airplane List">
 	<ContentPage.ToolbarItems>
-		<ToolbarItem Text=" Add Plane " Command="{Binding GoToAddPlaneCommand}"></ToolbarItem>
+		<ToolbarItem Text=" ADD PLANE " Command="{Binding GoToAddPlaneCommand}"></ToolbarItem>
 	</ContentPage.ToolbarItems>
 
 	<ContentPage.Resources>
@@ -33,9 +33,9 @@
 							<Label Text="{Binding Name}"/>
 							<Frame.GestureRecognizers>
 								<TapGestureRecognizer 
-							Buttons="Primary,Secondary"
-							Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodel:AirplaneListViewModel}}, Path=DisplayActionSheetCommand }}" 
-							CommandParameter="{Binding .}"/>
+									Buttons="Primary,Secondary"
+									Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodel:AirplaneListViewModel}}, Path=DisplayActionSheetCommand }}" 
+									CommandParameter="{Binding .}"/>
 							</Frame.GestureRecognizers>
 						</Frame>
 					</DataTemplate>

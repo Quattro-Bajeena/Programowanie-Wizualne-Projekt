@@ -49,7 +49,7 @@ namespace OleszekMowinski.ProjectApp.MAUI.ViewModels
         [RelayCommand]
         async Task GoToAddPlane()
         {
-            await Shell.Current.GoToAsync(nameof(ManageAirplanePage));
+            await Shell.Current.GoToAsync(nameof(AirplaneManagePage));
         }
 
         [RelayCommand]
@@ -75,7 +75,7 @@ namespace OleszekMowinski.ProjectApp.MAUI.ViewModels
                 {
                     { "EditedAirplane", airplane }
                 };
-                await Shell.Current.GoToAsync(nameof(ManageAirplanePage), navigationParameter);
+                await Shell.Current.GoToAsync(nameof(AirplaneManagePage), navigationParameter);
                 ReloadAirplanes();
             }
             else if(response == "Delete")

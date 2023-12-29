@@ -11,12 +11,12 @@ namespace OleszekMowinski.ProjectApp.DAOFile
     public class DAOSerializable : IDAO
     {
         private Database _database = new Database();
-        private readonly string _databaseFile = "database.json";
+        private readonly string _databaseFile;
 
         public DAOSerializable()
         {
             string currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            _databaseFile = Path.Combine(currentPath, "database.json");
+            _databaseFile = Path.Combine(currentPath, "OleszekMowinskiFileDatabase.json");
             Deserialize();
         }
 

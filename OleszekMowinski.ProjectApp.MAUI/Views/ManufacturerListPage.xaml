@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OleszekMowinski.ProjectApp.MAUI.Views.ManufacturerListPage"
+			 xmlns:viewmodel="clr-namespace:OleszekMowinski.ProjectApp.MAUI.ViewModels"
+             xmlns:interfaces="clr-namespace:OleszekMowinski.ProjectApp.Interfaces;assembly=OleszekMowinski.ProjectApp.Interfaces"
+             xmlns:core="clr-namespace:OleszekMowinski.ProjectApp.Core;assembly=OleszekMowinski.ProjectApp.Core"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="viewmodel:ManufacturerListViewModel"
+             Title="Manufacturer List">
+
+
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text=" Add Manufacturer " Command="{Binding GoToAddManufacturerCommand}"></ToolbarItem>
+	</ContentPage.ToolbarItems>
+
+
+	<VerticalStackLayout>
+		<Grid RowDefinitions="*">
+			<CollectionView ItemsSource="{Binding Manufacturers}">
+				<CollectionView.ItemTemplate>
+					<DataTemplate x:DataType="interfaces:IManufacturer">
+						<Frame Margin="10" Padding="5">
+							<Label Text="{Binding Name}"/>
+							<Frame.GestureRecognizers>
+								<TapGestureRecognizer 
+						Buttons="Primary,Secondary"
+						Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodel:ManufacturerListViewModel}}, Path=DisplayActionSheetCommand }}" 
+						CommandParameter="{Binding .}"/>
+							</Frame.GestureRecognizers>
+						</Frame>
+					</DataTemplate>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
+		</Grid>
+	</VerticalStackLayout>
+	
+</ContentPage>

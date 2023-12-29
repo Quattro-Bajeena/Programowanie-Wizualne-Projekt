@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OleszekMowinski.ProjectApp.MAUI.Views.ManufacturerManagePage"
+			 xmlns:viewmodel="clr-namespace:OleszekMowinski.ProjectApp.MAUI.ViewModels"
+             xmlns:core="clr-namespace:OleszekMowinski.ProjectApp.Core;assembly=OleszekMowinski.ProjectApp.Core"
+             x:DataType="viewmodel:ManufacturerManageViewModel"
+             Title="Manufacturer Manage">
+
+
+	<VerticalStackLayout>
+		<Entry 
+		Placeholder="Name" 
+		Text="{Binding Name}"/>
+		<BoxView/>
+
+		<Label Text="Founding date"/>
+		<DatePicker 
+		Date="{Binding Founded}" />
+
+		<Entry 
+			Placeholder="Headquaters" 
+			Text="{Binding Headquaters}"/>
+		<BoxView/>
+
+		<Entry 
+			Placeholder="President" 
+			Text="{Binding President}"/>
+		<BoxView/>
+
+		<Button Text="Save Data" Margin="10" Command="{Binding SaveAirplaneCommand}"></Button>
+
+	</VerticalStackLayout>
+</ContentPage>

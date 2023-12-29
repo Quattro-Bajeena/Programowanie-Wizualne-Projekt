@@ -38,10 +38,16 @@ namespace OleszekMowinski.ProjectApp.MAUI
 
             builder.Services.AddTransient<AirplaneListPage>();
             builder.Services.AddTransient<AirplaneListViewModel>();
-            builder.Services.AddTransient<ManageAirplanePage>();
-            builder.Services.AddTransient<ManageAirplaneViewModel>();
+            builder.Services.AddTransient<AirplaneManagePage>();
+            builder.Services.AddTransient<AirplaneManageViewModel>();
             builder.Services.AddTransient<AirplaneDetailsPage>();
             builder.Services.AddTransient<AirplaneDetailsViewModel>();
+            builder.Services.AddTransient<ManufacturerListPage>();
+            builder.Services.AddTransient<ManufacturerListViewModel>();
+            builder.Services.AddTransient<ManufacturerDetailsPage>();
+            builder.Services.AddTransient<ManufacturerDetailsViewModel>();
+            builder.Services.AddTransient<ManufacturerManagePage>();
+            builder.Services.AddTransient<ManufacturerManageViewModel>();
             builder.Services.AddSingleton(
                 serviceProvider => new BuisnessLogicComponent(serviceProvider.GetService<IConfiguration>().GetValue<string>("DAOLibraryName"))
                 );

@@ -2,9 +2,9 @@ using OleszekMowinski.ProjectApp.MAUI.ViewModels;
 
 namespace OleszekMowinski.ProjectApp.MAUI.Views;
 
-public partial class ManageAirplanePage : ContentPage
+public partial class AirplaneManagePage : ContentPage
 {
-	public ManageAirplanePage(ManageAirplaneViewModel manageAirplaneViewModel)
+	public AirplaneManagePage(AirplaneManageViewModel manageAirplaneViewModel)
 	{
 		InitializeComponent();
 		BindingContext = manageAirplaneViewModel;
