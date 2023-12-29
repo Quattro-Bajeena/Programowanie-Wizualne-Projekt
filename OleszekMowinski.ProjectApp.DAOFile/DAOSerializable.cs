@@ -2,6 +2,7 @@
 using OleszekMowinski.ProjectApp.DAOFile.DataObjects;
 using OleszekMowinski.ProjectApp.DAOSQL.DataObjects;
 using OleszekMowinski.ProjectApp.Interfaces;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -10,18 +11,20 @@ namespace OleszekMowinski.ProjectApp.DAOFile
     public class DAOSerializable : IDAO
     {
         private Database _database = new Database();
-        const string DATABASE_FILE = "database.json";
+        private readonly string _databaseFile = "database.json";
 
         public DAOSerializable()
         {
+            string currentPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            _databaseFile = Path.Combine(currentPath, "database.json");
             Deserialize();
         }
 
         private void Deserialize()
         {
-            if (File.Exists(DATABASE_FILE))
+            if (File.Exists(_databaseFile))
             {
-                var json = File.ReadAllText(DATABASE_FILE);
+                var json = File.ReadAllText(_databaseFile);
                 _database = JsonSerializer.Deserialize<Database>(json);
             }
             else
@@ -34,7 +37,7 @@ namespace OleszekMowinski.ProjectApp.DAOFile
         private void Serialize()
         {
             string jsonString = JsonSerializer.Serialize(_database);
-            File.WriteAllText(DATABASE_FILE, jsonString);
+            File.WriteAllText(_databaseFile, jsonString);
         }
 
         public IAirplane CreateNewAirplane(string name, DateTime introduction, int weight, AirplaneStatus status, Guid manufacturerId)

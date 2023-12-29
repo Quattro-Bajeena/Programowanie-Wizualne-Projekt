@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:viewmodel="clr-namespace:OleszekMowinski.ProjectApp.MAUI.ViewModels"
+			 x:DataType="viewmodel:AirplaneDetailsViewModel"
+             x:Class="OleszekMowinski.ProjectApp.MAUI.Views.AirplaneDetailsPage"
+             Title="Airplane Details">
+    <VerticalStackLayout Spacing="10" Margin="10" Padding="10">
+		<HorizontalStackLayout>
+			<Label Text="Name: "/>
+			<Label Text="{Binding Airplane.Name}"/>
+		</HorizontalStackLayout>
+		<HorizontalStackLayout>
+			<Label Text="Introduction date: "/>
+			<Label Text="{Binding Airplane.Introduction}"/>
+		</HorizontalStackLayout>
+		<HorizontalStackLayout>
+			<Label Text="Weight (kg): "/>
+			<Label Text="{Binding Airplane.Weight}"/>
+		</HorizontalStackLayout>
+		<HorizontalStackLayout>
+			<Label Text="Status: "/>
+			<Label Text="{Binding Airplane.Status}"/>
+		</HorizontalStackLayout>
+		<HorizontalStackLayout>
+			<Label Text="Manufacturer: "/>
+			<Label Text="{Binding Airplane.Manufacturer.Name}"/>
+		</HorizontalStackLayout>
+
+		<Button Text="Return" Command="{Binding HomeCommand}"/>
+	</VerticalStackLayout>
+
+</ContentPage>

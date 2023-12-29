@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OleszekMowinski.ProjectApp.MAUI.Views.AirplaneListPage"
+			 xmlns:viewmodel="clr-namespace:OleszekMowinski.ProjectApp.MAUI.ViewModels"
+			 xmlns:interfaces="clr-namespace:OleszekMowinski.ProjectApp.Interfaces;assembly=OleszekMowinski.ProjectApp.Interfaces"
+			 xmlns:core="clr-namespace:OleszekMowinski.ProjectApp.Core;assembly=OleszekMowinski.ProjectApp.Core"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+			 x:DataType="viewmodel:AirplaneListViewModel"
+             Title="Airplane List">
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text=" Add Plane " Command="{Binding GoToAddPlaneCommand}"></ToolbarItem>
+	</ContentPage.ToolbarItems>
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<toolkit:EnumToIntConverter x:Key="EnumToIntConverter" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+	<VerticalStackLayout>
+		<Label Text="Airplane status filter"/>
+		<Picker 
+			ItemsSource="{Binding AllAirplaneStatuses}"
+			SelectedIndex="{Binding FilterStatus, Converter={StaticResource EnumToIntConverter}, ConverterParameter={x:Type core:AirplaneStatus}}"/>
+		<Button Text="Filter by Status" Command="{Binding FilterAirplanesCommand}" />
+
+		<Grid RowDefinitions="*">
+			<CollectionView ItemsSource="{Binding Airplanes}">
+				<CollectionView.ItemTemplate>
+					<DataTemplate x:DataType="interfaces:IAirplane">
+						<Frame Margin="10" Padding="5">
+							<Label Text="{Binding Name}"/>
+							<Frame.GestureRecognizers>
+								<TapGestureRecognizer 
+							Buttons="Primary,Secondary"
+							Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodel:AirplaneListViewModel}}, Path=DisplayActionSheetCommand }}" 
+							CommandParameter="{Binding .}"/>
+							</Frame.GestureRecognizers>
+						</Frame>
+					</DataTemplate>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
+		</Grid>
+	</VerticalStackLayout>
+	
+</ContentPage>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OleszekMowinski.ProjectApp.MAUI.Views.ManageAirplanePage"
+			 xmlns:viewmodel="clr-namespace:OleszekMowinski.ProjectApp.MAUI.ViewModels"
+			 xmlns:core="clr-namespace:OleszekMowinski.ProjectApp.Core;assembly=OleszekMowinski.ProjectApp.Core"
+			 x:DataType="viewmodel:ManageAirplaneViewModel"
+			 xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="{Binding Title}">
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<toolkit:EnumToIntConverter x:Key="EnumToIntConverter" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	
+	<VerticalStackLayout>
+		<Entry 
+			Placeholder="Name" 
+			Text="{Binding Name}"/>
+		<BoxView/>
+
+		<Label Text="Introduction"/>
+		<DatePicker 
+			Date="{Binding Introduction}" />
+
+		<Label Text="Weight"/>
+		<Entry 
+			Placeholder="Weight" 
+			Keyboard="Numeric" 
+			Text="{Binding Weight}"/>
+
+		<Label Text="Status"/>
+		<Picker 
+			ItemsSource="{Binding AllAirplaneStatuses}"
+			SelectedIndex="{Binding Status, Converter={StaticResource EnumToIntConverter}, ConverterParameter={x:Type core:AirplaneStatus}}"/>
+
+		<Label Text="Manufacturers"/>
+		<Picker 
+			ItemsSource="{Binding AllManufacturers}"
+			ItemDisplayBinding="{Binding Name}"
+			SelectedItem="{Binding Manufacturer}"/>
+
+		<Button Text="Save Data" Margin="10" Command="{Binding SaveAirplaneCommand}"></Button>
+
+	</VerticalStackLayout>
+</ContentPage>

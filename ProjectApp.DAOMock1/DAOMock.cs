@@ -163,6 +163,7 @@ namespace OleszekMowinski.ProjectApp.DAOMock
             {
                 modifiedAirplane.Name = name;
                 modifiedAirplane.Introduction = introduction;
+                modifiedAirplane.Weight = weight;
                 modifiedAirplane.Manufacturer = GetManufacturer(manufacturerId);
                 modifiedAirplane.ManufacturerId = manufacturerId;
                 modifiedAirplane.Status = status;

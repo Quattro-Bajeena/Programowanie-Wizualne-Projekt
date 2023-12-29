@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OleszekMowinski.ProjectApp.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OleszekMowinski.ProjectApp.MVC", "OleszekMowinski.ProjectApp.MVC\OleszekMowinski.ProjectApp.MVC.csproj", "{8C82893E-2BD6-4E5A-BBEE-0E91D506328A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OleszekMowinski.ProjectApp.DAOFile", "OleszekMowinski.ProjectApp.DAOFile\OleszekMowinski.ProjectApp.DAOFile.csproj", "{862B0E9F-6ADB-4AE7-B0AE-DB5951FC80EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OleszekMowinski.ProjectApp.DAOFile", "OleszekMowinski.ProjectApp.DAOFile\OleszekMowinski.ProjectApp.DAOFile.csproj", "{862B0E9F-6ADB-4AE7-B0AE-DB5951FC80EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OleszekMowinski.ProjectApp.MAUI", "OleszekMowinski.ProjectApp.MAUI\OleszekMowinski.ProjectApp.MAUI.csproj", "{49E257A6-C507-47C6-8C62-45E9A4A44FD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,12 @@ Global
 		{862B0E9F-6ADB-4AE7-B0AE-DB5951FC80EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{862B0E9F-6ADB-4AE7-B0AE-DB5951FC80EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{862B0E9F-6ADB-4AE7-B0AE-DB5951FC80EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49E257A6-C507-47C6-8C62-45E9A4A44FD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49E257A6-C507-47C6-8C62-45E9A4A44FD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49E257A6-C507-47C6-8C62-45E9A4A44FD6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{49E257A6-C507-47C6-8C62-45E9A4A44FD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49E257A6-C507-47C6-8C62-45E9A4A44FD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49E257A6-C507-47C6-8C62-45E9A4A44FD6}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

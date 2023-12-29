@@ -12,7 +12,7 @@ namespace OleszekMowinski.ProjectApp.BLC
         public BuisnessLogicComponent(string libraryName)
         {
             Type? typeToCreate = null;
-            var assembly = Assembly.UnsafeLoadFrom(libraryName);
+            var assembly = Assembly.LoadFrom(libraryName);
 
             foreach (var type in assembly.GetTypes())
             {
