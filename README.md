@@ -1,6 +1,6 @@
 # Programowanie Wizualne - Projekt
 
-Autorzy: **Mateusz Oleszek** (144608), **Łukasz Mowiński** (143871)
+Autorzy: **Mateusz Oleszek**
 
 ### DAO
 
